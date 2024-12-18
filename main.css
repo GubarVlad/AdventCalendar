@@ -1,0 +1,263 @@
+
+* {
+    margin: 0;
+}
+
+body {
+    background-color: #E2D7AC;
+    overflow: hidden;
+}
+
+.logo {
+width: 45px;
+height: 45px;
+margin-left: 28px;
+margin-top: 58px;
+}
+
+
+.maintext{
+    font-family: 'Palatino';
+    font-size: 20px;
+    text-align: right;
+    margin-right:33px ;
+    margin-top: 40px;
+}
+
+.mainblock {
+  margin: 44px auto;
+  background-color: #6A994E;
+  border-radius: 39px;
+  height: auto;
+  width: 90%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 4 колонки */
+  gap: 15px;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* Размеры и стили для каждой клетки */
+.calendar .small {
+  grid-column: span 1;
+  aspect-ratio: 1; /* Квадрат */
+}
+
+.calendar .medium {
+  grid-column: span 1; /* Оставляем ячейку занимать 1 колонку */
+  grid-row: span 2; /* Растягиваем ячейку на 2 строки */
+  border-radius: 0px;
+  aspect-ratio: unset; /* Убираем фиксированное соотношение сторон */
+  background-size: contain; /* Сохраняем пропорции картинки */
+  background-repeat: no-repeat; /* Предотвращаем повтор картинки */
+  background-position: center; /* Центрируем картинку */
+}
+
+.calendar .large {
+  grid-column: span 2; /* Занимает три колонки */
+  aspect-ratio: 2; /* Прямоугольник шириной 3:1 */
+  background-size: contain; /* Сохраняем пропорции картинки */
+  background-repeat: no-repeat; /* Предотвращаем повтор картинки */
+  background-position: center;
+  
+}
+
+.calendar .superlarge {
+  grid-column: span 2; /* Занимает три колонки */
+  grid-row: span 2;
+}
+
+/* Стили для изображения или текста внутри клеток */
+.calendar div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  background-size: cover;
+  background-position: center;
+}
+
+.calendar img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Изображение сохраняет пропорции */
+}
+
+
+/* Примеры для изображений 
+.calendar .small:nth-child(1) { background-image: url('Days/1.png'); }
+.calendar .small:nth-child(2) { background-image: url('Days/9.png'); }
+.calendar .small:nth-child(3) { background-image: url('Days/20.png'); }
+.calendar .medium:nth-child(4) { background-image: url('Days/5.png'); }
+.calendar .small:nth-child(5) { background-image: url('Days/7.png'); }
+.calendar .small:nth-child(6) { background-image: url('Days/3.png'); }
+.calendar .small:nth-child(7) { background-image: url('Days/18.png'); }
+.calendar .large:nth-child(8) { background-image: url('Days/11.png'); }
+.calendar .large:nth-child(9) { background-image: url('Days/16.png'); }
+.calendar .medium:nth-child(10) { background-image: url('Days/17.png'); }
+.calendar .small:nth-child(11) { background-image: url('Days/4.png'); }
+.calendar .small:nth-child(12) { background-image: url('Days/2.png'); }
+.calendar .small:nth-child(13) { background-image: url('Days/13.png'); }
+.calendar .small:nth-child(14) { background-image: url('Days/10.png'); }
+.calendar .small:nth-child(15) { background-image: url('Days/6.png'); }
+.calendar .small:nth-child(16) { background-image: url('Days/15.png'); }
+.calendar .large:nth-child(17) { background-image: url('Days/19.png'); }
+.calendar .small:nth-child(18) { background-image: url('Days/14.png'); }
+.calendar .medium:nth-child(19) { background-image: url('Days/12.png'); }
+.calendar .small:nth-child(20) { background-image: url('Days/8.png'); }
+.calendar .superlarge:nth-child(21) { background-image: url('Days/21.png'); }
+Крестик для закрытия */
+
+/* Всплывающее окно */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.popup-container.open {
+  display: flex;
+  opacity: 1;
+}
+
+/* Контент окна */
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 25px;
+  text-align: center;
+  max-width: 400px;
+  position: relative;
+  transform: translateY(-50%);
+}
+
+.popup-text {
+  font-size: 20px;
+  color: #333;
+}
+
+/* Крестик для закрытия */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  color: #333;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.locked {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: not-allowed; /* Курсор указывает на неактивность */
+  pointer-events: none; /* Запрещаем взаимодействие */
+}
+
+/* Фон для закрытых ячеек в зависимости от размера */
+.locked.small {
+  background-image: url('Days/locked.png');
+}
+
+.locked.medium {
+  background-image: url('Days/locked-medium.png');
+}
+
+.locked.large {
+  background-image: url('Days/locked-large.png');
+}
+
+.open {
+  opacity: 1; /* Полностью видимые */
+  cursor: pointer; /* Указатель в виде руки */
+  transition: opacity 0.5s ease-in-out; /* Плавная анимация для изменения прозрачности */
+}
+
+
+ /* Базовые стили для всей страницы */
+body {
+  background-color: #E2D7AC ;
+  overflow-x: hidden; /* Запрещаем горизонтальный скроллинг */
+}
+
+/* Стили для контейнера всплывающего окна */
+.popup-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Затемнение фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none; /* Отключаем взаимодействие до открытия */
+  transition: opacity 0.5s ease; /* Плавная анимация */
+}
+
+/* Когда окно открыто */
+.popup-container.open {
+  opacity: 1;
+  pointer-events: all; /* Включаем взаимодействие при открытии */
+}
+
+/* Стили для контента всплывающего окна */
+.popup-content {
+  background-color: #E2D7AC; /* Тот же цвет фона */
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: none; /* Без рамки */
+  font-family: 'Palatino', serif;
+  font-size: 22px;
+  color: #333;
+  opacity: 0;
+  transform: translateY(100%); /* Начальная позиция скрыта снизу */
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Плавная анимация */
+}
+
+/* Когда контент окна появляется */
+.popup-container.open .popup-content {
+  transform: translateY(0); /* Плавно появляется */
+  opacity: 1; /* Текст становится видимым */
+}
+
+/* Стили для текста внутри окна */
+.popup-text {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.popup-day {
+  font-weight: bold;
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.copyright {
+  font-size: 15px;
+  text-align: center;
+}
