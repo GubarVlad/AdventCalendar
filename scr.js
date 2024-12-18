@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("close-btn");
 
     // Дата начала календаря (18 декабря)
-    const startDate = new Date("2024-12-17");
+    const startDate = new Date("2024-12-18");
     const today = new Date();
     const dayDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1; // Сколько дней прошло
 
-    // Массив текстов для каждого дня
+   
     const dayMessages = {
         1: `Привет, дружище! Сегодня день улыбок! Давай улыбнёмся всем вокруг, даже если мир не всегда радужный. Улыбка – это маленький, но мощный способ сделать день ярче. Не забывай, твоя доброта может изменить чью-то жизнь. Так что улыбайся чаще, это заразительно!`,
         2: `Задание на сегодня: напиши своему близкому человеку что-то приятное. Мы часто забываем, как важно говорить тем, кого мы любим, как сильно их ценим. Отправь сообщение, пусть оно будет самым тёплым и искренним. Ты удивишь этого человека, и он точно запомнит этот момент.`,
@@ -36,19 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Обрабатываем ячейки календаря
     const dayCells = document.querySelectorAll(".calendar div");
     dayCells.forEach((cell) => {
-        const day = parseInt(cell.id); // Получаем номер дня из ID ячейки
+        const day = parseInt(cell.id); 
 
         if (day <= dayDiff) {
-            // Делаем ячейки активными, если наступил их день
+            
             cell.classList.add("open");
             cell.style.backgroundImage = `url(Days/${day}.png)`;
             cell.addEventListener("click", () => {
-                const dayName = getDayName(startDate, day);  // Получаем название дня недели
-                const date = getDateString(startDate, day);  // Получаем дату
+                const dayName = getDayName(startDate, day);  
+                const date = getDateString(startDate, day); 
                 openPopup(dayMessages[day] || "Сюрприз! Сегодня особенный день!", dayName, date);
             });
         } else {
-            // Делаем ячейки видимыми, но недоступными для взаимодействия
+            
             cell.classList.add("locked");
             const lockedImages = {
                 small: 'locked-small.png',
@@ -65,40 +65,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Функция для получения названия дня недели
+   
     function getDayName(startDate, day) {
         const dayOfMonth = new Date(startDate);
         dayOfMonth.setDate(startDate.getDate() + day - 1); // Устанавливаем нужную дату
         const options = { weekday: 'long' };  // Для получения полного названия дня недели
-        return dayOfMonth.toLocaleDateString('ru-RU', options);  // Используем русский язык
+        return dayOfMonth.toLocaleDateString('ru-RU', options);  
     }
 
-    // Функция для получения даты (число месяца)
+
     function getDateString(startDate, day) {
         const dayOfMonth = new Date(startDate);
-        dayOfMonth.setDate(startDate.getDate() + day - 1); // Устанавливаем нужную дату
+        dayOfMonth.setDate(startDate.getDate() + day - 1); 
         let month = dayOfMonth.getMonth() + 1; // Получаем месяц
         let date = dayOfMonth.getDate(); // Получаем день месяца
         if (month === 12) {
             return `${date} декабря`;
         } else {
-            return `${date} января`; // Если месяц январь, то возвращаем "января"
+            return `${date} января`; 
         }
     }
 
-    // Функция для открытия всплывающего окна
+  
     function openPopup(message, dayName, date) {
         popupText.innerHTML = `<h2>${dayName}, ${date}</h2><p>${message}</p>`;
         popupContainer.classList.add("open");
     }
 
-    // Закрытие всплывающего окна
+   
     closeBtn.addEventListener("click", () => {
         popupContainer.classList.remove("open");
     });
 });
 
-// Например, в папке с картинками создаем скрытый файл
+
 const hiddenMessage = `
 Привет, кодер! Не порти себе вайб — не смотри наперед. Если ты это читаешь, значит ты точно зашел не туда. Но что поделать — раз открыл, вот тебе пара советов: 
 
@@ -109,7 +109,7 @@ const hiddenMessage = `
 Удачи с кодом! 🔥
 `;
 
-// Функция для отображения пасхалки (можно вызвать по клику или при открытии страницы)
+
 function showEasterEgg() {
     alert(hiddenMessage);
 }
