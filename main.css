@@ -6,7 +6,6 @@
 body {
     background-color: #E2D7AC;
     animation: start 3s;
-    user-select: none;
 }
 
 @keyframes start {
